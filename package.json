@@ -1,0 +1,8 @@
+{
+	"name" : "HR-Project",
+	"version" : "0.0.1",
+	"description" : "My project for hack reactor",
+	"dependencies" :{
+		"mime" : "~1.2.11"
+	}
+}
