@@ -12,7 +12,7 @@ function send404(response){
 
 // Receive the path to a file in order to render it as a view in the response.
 function showViewPage(response, filePath, fileContents){
-	response.writeHead(200, {"Content-type"} : mime.lookup(path.basname(filePath))});
+	response.writeHead(200, {"Content-type" : mime.lookup(path.basname(filePath))});
 	response.end(fileContents);
 }
 
