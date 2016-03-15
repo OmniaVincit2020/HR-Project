@@ -1,26 +1,86 @@
-<!-- Empty HTML file -->
+<!DOCTYPE html>
 <html>
-   <head>
-      <title>Blog</title>
-      <link rel="stylesheet" type="text/css" href="css/style.css">
-   </head>
-   <body>
-      <div id="header">
-         <span>simple Blog example</span>
-	 <ul id="menu">
-            <li>About</li>
-            <li>Articles</li>
-            <li>Videos</li>
-            <li>Subscribe</li>
-	 </ul>
-      </div>
-      <div id="content">
-         <h2><a href="ui_libraries_comparison.html">JavaScript UI libraries comparison.</a></h2>
-         <p>It seems to be not so hard to make this page. 
-               Example: <a class="article" href="ui_libraries_comparison.html">Read more.</a></p>
-	 <h2><a href=""> Node.js for beginners. Building my own server!</a></h2>
-	 <p> We will use Node.js for this project.!!! First, install it: 
-               <a class="article" href="node.html">Read on Node.js</a></p>
-      </div>  
-   </body>
+<head>        
+   <link rel="stylesheet" type="text/css" href="css/style.css">
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+
+<body>
+
+<div>
+
+   <div class="intro top" id="intro-top">
+      View 1: "Trump’s candidacy begins as a punchline, and it’s hard to imagine how it will end as anything other than that." - John Nichols, "The Nation.com", June 2017 (Donald Trump’s         Absurdly Appropriate Candidacy)
+   </div>
+
+            --transition: play in background : Audio of trump (optional)
+
+   <div class="intro mid" id="intro-mid">
+      View 2: "The next time we see [the anti-Trump protester], we might have to kill him." -Trump supporter in reference to a protestor he had just punched in the face, Trump rally in Fayetville, NC on March 11, 2016. Courtesty: Jeremy Diamond, "CNN.com" (Trump rally attendee charged with assault)
+   </div>
+
+            --transition: fade to black. 
+
+   <div class="intro btm" id="intro-btm">
+      View 3: How did we get here? 
+   </div>            
+            --fade out all three above div's.
+
+   
+   <div class="intro central" id="intro-central">
+      View 4: Welcome to Pulse. This app answers question like this by analyzing all tweets about the topic you choose, over the time period that interests you, and presents you with a map of geo-tagged results that are color-coded according to the content of the tweets. 
+   </div>   
+
+</div>
+
+
+
+<div class="form central" id="form-input">
+   <form action="#" onsubmit="queryTwitterApi()" method="post">
+     <fieldset>
+       <legend>Your guidelines:</legend>
+
+            What subject do you want to follow?<br>
+       <input type="text" id="firstname" value=""><br>
+
+         When do you want your viewing to start? <br>
+       <input type="text" id="startdate" ><br>
+
+         When do you want your viewing to end? <br>
+       <input type="text" id="enddate" ><br>
+
+         What time step would you like to set between data points? <br>
+       <input type="text" id="timestep" ><br>
+           Select units for the time step.
+       <select name="timeUnits" form="form-input">
+         <option value="seconds">Seconds</option>
+         <option value="minutes">Minutes</option>
+         <option value="hours">Hours</option>
+          <option value="days">Days</option>
+      </select>
+       <br>
+
+         What theme are you interested in? For example, enter "Violence." <br>
+       <input type="text" id="theme" ><br>
+
+       <br>
+      
+       <input type="submit" value="Submit">
+     </fieldset>
+   </form>
+</div>   
+
+
+
+<div class="trans central" id="trans-querying">
+   Querying twitter for these parameters... please be patient, as there are potentially millions of tweets of interest.
+</div>
+
+
+<div class="map view central" id="view-map">
+   
+</div>
+</body>
 </html>
+
