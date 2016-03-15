@@ -1,10 +1,8 @@
-<!DOCTYPE html>
 <html>
 <head>  
-   <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>      
    <link rel="stylesheet" type="text/css" href="css/style.css">
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+   <meta charset="ISO-8859-1">
+   <title>Insert title here</title>
 </head>
 
 <body>
@@ -23,7 +21,7 @@
 
 
 <div class="form central" id="form-input">
-   <form action="#" onsubmit="ajax()" method="post">
+   <form action="#" onsubmit="ajax();" method="post">
      <fieldset>
        <legend>Your guidelines:</legend>
 
@@ -84,7 +82,7 @@
    function ajax(){
 
          // The first callback converts form inputs to a JSON object (hard-coded to the form fields)
-      return function(){
+      function(){
          var data = { subject: getElementById("subject").value,
                      start : getElementById("startdate").value,
                      end : getElementById("enddate").value,
@@ -93,7 +91,7 @@
                      theme : getElementById("theme").value }
 
          // The second callback serializes the JSON object into a url-encoded string.
-         return function(){      
+         function(){      
             var urlEncodedData = "";
             var urlEncodedDataPairs = [];
             var name; 
@@ -108,11 +106,11 @@
             urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g, '+');
 
             // The third callback sends the urlEncodedData to the server as a POST request.
-            return function(){
+            function(){
                var XHR = new XMLHttpRequest();
 
                // Set the request
-               XHR.open('POST','<c:url value="/twitterQuery"/>');
+               XHR.open('POST','localhost:3000/twitterQuery');
 
                // Needed for the POST form data request
                XHR.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
@@ -168,7 +166,7 @@
       var XHR = new XMLHttpRequest();
 
       // Set the request
-      XHR.open('POST','<c:url value="/twitterQuery"/>');
+      XHR.open('POST','localhost:3000/twitterQuery');
 
       // Needed for the POST form data request
       XHR.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
