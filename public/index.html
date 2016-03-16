@@ -1,6 +1,6 @@
 <html>
 <head>  
-   <link rel="stylesheet" type="text/css" href="css/style.css">
+   <link rel="stylesheet" type="text/css" href="resource/css/style.css">
    <meta charset="ISO-8859-1">
    <title>Insert title here</title>
 </head>
@@ -21,7 +21,7 @@
 
 
 <div class="form central" id="form-input">
-   <form action="#" onsubmit="ajax();" method="post">
+   <form action="#" onsubmit="ajax()" method="post">
      <fieldset>
        <legend>Your guidelines:</legend>
 
@@ -136,12 +136,12 @@
 
    // Hard-coded to fit this form. Convert the values from user input to JSON and return an object.
    function jsonifyForm(){
-      var data = { subject: getElementById("subject").value,
-                   start : getElementById("startdate").value,
-                   end : getElementById("enddate").value,
-                   step : getElementById("timestep").value,
-                   units : getElementById("timeunits").value,
-                   theme : getElementById("theme").value }
+      var data = { subject: document.getElementById("subject").value,
+                   start : document.getElementById("startdate").value,
+                   end : document.getElementById("enddate").value,
+                   step : document.getElementById("timestep").value,
+                   units : document.getElementById("timeunits").value,
+                   theme : document.getElementById("theme").value }
       return data;
    }
 
@@ -163,19 +163,22 @@
 
    // Manually build the request to send data in the AJAX call. 
    function sendData(data){
+
       var XHR = new XMLHttpRequest();
 
       // Set the request
-      XHR.open('POST','localhost:3000/twitterQuery');
+      XHR.open('POST','../twitterQuery',false);
 
       // Needed for the POST form data request
       XHR.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-      XHR.setRequestHeader('Content-Length', data);
 
       // Send the data
       XHR.send(data);
+
+      var ham = XHR.responseText;
+      alert(ham);
    }
-<script>
+</script>
 </body>
 </html>
 
