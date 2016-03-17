@@ -2,14 +2,12 @@ var fs = require('fs');
 var path = require ('path');
 var mime = require ('mime');
 var util = require ('util');
-var twitterStreamProcessor = require('./tweetProcessor.js');
+var twitterQuery = require('./twitterQuery.js');
 
 var actions = {
-	'twitterQuery' : twitterStreamProcessor(data) {
-		console.log("Flag, test one for: ")
-		console.log(data);
-	}
-}
+	'twitterQuery' : twitterQuery.makeQuery
+};
+
 
 function jsonifyRequest(request){
 	var json = {};
@@ -56,31 +54,40 @@ this.dispatch = function(request, response) {
 	} else {
 
 		var parts = request.url.split('/');
+
 		var action = parts[1];
+
 		var argument = parts.slice(2, parts.length).join("/");
 
 		if (action == "resource"){
+
 			sendFile('./public/' + argument);
 
 		} else if (typeof actions[action] == 'function') {
+
 			var body = '';
 
 			request.on('data', function(data){
-				body += data;
-				var newBody = jsonifyRequest(body);
-				var content = actions[action](newBody);
+			
+			body += data;
+			
+			var newBody = jsonifyRequest(body);
+			
+			var content = actions[action](newBody);
 
-				response.writeHead(200,{'Content-Type': 'application/json'});
+			response.writeHead(200,{'Content-Type': 'application/json'});
 
-				response.end(JSON.stringify(newBody));
+			response.end(JSON.stringify(newBody));
 
-				console.log("Flag2: The asynch response has executed.");
+			console.log("Flag2: The asynch response has executed.");
 
 			});
 
 			//verifyFile(content);
 		} else {
+
 			serverError(404, '404 Error: Resource not found.');
+
 		}
 	}
 }

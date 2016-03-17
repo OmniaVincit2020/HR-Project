@@ -7,4 +7,18 @@
 	-return JSON object containing: { location: geotagged coordinates, color: mood-inferred color};
 //
 */
-var util = require('util');	
+
+var util = require('util');
+
+this.makeQuery = function(data){
+
+	console.log("The processing has successfully reached the twitterQuery.js function")
+	console.log(data);
+
+
+
+
+
+
+
+}
