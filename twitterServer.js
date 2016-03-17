@@ -1,4 +1,5 @@
 var WebSocketServer = require('websocket').server;
+
 var http = require('http');
  
 var server = http.createServer(function(request, response) {
@@ -12,9 +13,8 @@ server.listen((process.env.PORT || 8080), function() {
 });
  
 
-
 var socketServer = new WebSocketServer({
-    httpServer: mainServer,
+    httpServer: server,
     autoAcceptConnections: false
 });
 
@@ -34,7 +34,7 @@ socketServer.on('request', function(request){
     connection.on('message', function(message){
         if (message.type === 'utf8'){
             console.log('Received Message: ' + message.utf8Data);
-            connetion.sentUTF(message.utf8Data);
+            connection.sendUTF(message.utf8Data);
         }
 
         else if (message.type === 'binary') {

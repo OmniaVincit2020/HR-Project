@@ -2,6 +2,7 @@ var fs = require('fs');
 var path = require ('path');
 var mime = require ('mime');
 var util = require ('util');
+
 var twitterQuery = require('./twitterQuery.js');
 
 var actions = {
@@ -29,7 +30,7 @@ this.dispatch = function(request, response) {
 	var sendPage = function(filePath, fileContents) {
 		response.writeHead(200, {'Content-Type': mime.lookup(path.basename(filePath))});
 		response.end(fileContents);
-	}
+	};
 
 	var sendFile = function(filePath) {
 		fs.exists(filePath, function(exists){
@@ -54,9 +55,7 @@ this.dispatch = function(request, response) {
 	} else {
 
 		var parts = request.url.split('/');
-
 		var action = parts[1];
-
 		var argument = parts.slice(2, parts.length).join("/");
 
 		if (action == "resource"){
@@ -69,17 +68,13 @@ this.dispatch = function(request, response) {
 
 			request.on('data', function(data){
 			
-			body += data;
-			
-			var newBody = jsonifyRequest(body);
-			
-			var content = actions[action](newBody);
-
-			response.writeHead(200,{'Content-Type': 'application/json'});
-
-			response.end(JSON.stringify(newBody));
-
-			console.log("Flag2: The asynch response has executed.");
+				body += data;
+				var newBody = jsonifyRequest(body);
+				var content = actions[action](newBody);
+				
+				response.writeHead(200,{'Content-Type': 'application/json'});
+				response.end(JSON.stringify(newBody));
+				console.log("Flag2: The asynch response has executed.");
 
 			});
 
