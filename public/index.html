@@ -12,16 +12,19 @@
    <div class="intro central" id="intro-central">
       View 4: Welcome to Pulse. This app answers question like this by analyzing all tweets about the topic you choose, over the time period that interests you, and presents you with a map of geo-tagged results that are color-coded according to the content of the tweets. 
    </div>   
-
+<textarea name="text" id="text1" cols="25" rows="5">
+Add multiple lines of text here and watch the scrollbars grow...
+</textarea>
 </div>
 <br>
 <br>
 <br>
 <br>
 
-
+<!-- Note the use of a button rather than input to submit form; prevents
+page refresh, to preserve utility of ajax-->
 <div class="form central" id="form-input">
-   <form action="#" onsubmit="ajax()" method="post">
+   <form>
      <fieldset>
        <legend>Your guidelines:</legend>
 
@@ -50,8 +53,8 @@
        <input type="text" id="theme" ><br>
 
        <br>
-      
-       <input type="submit" value="Submit">
+       <button type="button" id="submit-btn2" onclick="ajax()" 
+         method="post">Submit</button>
      </fieldset>
    </form>
 </div>   
@@ -73,61 +76,15 @@
 
 
 <div class="map view central" id="view-map">
+   <span id = "map">
    Map goes here.
+</span>
 </div>
 
 <script type="text/javascript">
-   /* TEST: alternative to multi-call: 
 
    function ajax(){
 
-         // The first callback converts form inputs to a JSON object (hard-coded to the form fields)
-      function(){
-         var data = { subject: getElementById("subject").value,
-                     start : getElementById("startdate").value,
-                     end : getElementById("enddate").value,
-                     step : getElementById("timestep").value,
-                     units : getElementById("timeunits").value,
-                     theme : getElementById("theme").value }
-
-         // The second callback serializes the JSON object into a url-encoded string.
-         function(){      
-            var urlEncodedData = "";
-            var urlEncodedDataPairs = [];
-            var name; 
-
-            // First, put each json key pair into the format "keyName=keyValue", and push to an array.
-            for (name in data){
-               urlEncodedDataPairs.push(encodeURIComponent(name) + '=' + encodeURIComponent(data[name]));
-            }
-
-            // Next, convert the array into one URL-encoded string in the format 
-            // "name1=value1&name2=value2" and return it.
-            urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g, '+');
-
-            // The third callback sends the urlEncodedData to the server as a POST request.
-            function(){
-               var XHR = new XMLHttpRequest();
-
-               // Set the request
-               XHR.open('POST','localhost:3000/twitterQuery');
-
-               // Needed for the POST form data request
-               XHR.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-               XHR.setRequestHeader('Content-Length', urlEncodedData.length);
-
-               // Send the data
-               XHR.send(urlEncodedData);
-            } 
-         }             
-      }
-   }();   
-   */
-
-
-
-
-   function ajax(){
       var json = jsonifyForm();
       var data = serializeJson(json);
       sendData(data);
@@ -165,18 +122,29 @@
    function sendData(data){
 
       var XHR = new XMLHttpRequest();
+      var response = {};
+
+      function alertContents(){
+         if (this.readyState === XMLHttpRequest.DONE){
+            if (this.status === 200) {
+               response = JSON.parse(this.responseText);
+               document.getElementById("text1").value = response["subject"];
+            } else {
+               alert('There was a problem with the request.')
+            }
+         }
+      }         
+
+      XHR.onreadystatechange = alertContents;
 
       // Set the request
-      XHR.open('POST','../twitterQuery',false);
+      XHR.open('POST','../twitterQuery', true);
 
       // Needed for the POST form data request
       XHR.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
 
       // Send the data
       XHR.send(data);
-
-      var ham = XHR.responseText;
-      alert(ham);
    }
 </script>
 </body>

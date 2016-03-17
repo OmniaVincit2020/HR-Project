@@ -2,7 +2,6 @@ var util = require('util');
 var http = require('http');
 var url = require ('url');
 
-
 // Custom-built dispatcher
 var dispatcher = require('./dispatcher.js');
 
